@@ -1,4 +1,5 @@
 import os
+import time
 
 class Player:
     def __init__(self):
@@ -29,7 +30,7 @@ class GameRenderer():
     def create2D_List(self):
         self.height_list = []
         
-        for element in range(0, (self.__width)):
+        for element in range(0, (self.__height)):
             self.width_list = [0] * self.__width
             self.height_list.append(self.width_list)
         
@@ -46,11 +47,22 @@ class GameRenderer():
             
     def gameLoop(self):
         while self.is_running == True:
-            os.system('clear')
-            for row in self.height_list:
-                print(row)
             
+            #Check if OS is Windows or UNIX
+            if os.name == 'nt':
+                time.sleep(0.9)
+                os.system("cls")
+                for row in self.height_list:
+                    print(row)
+            
+            if os.name == 'posix':
+                time.sleep(0.9)
+                os.system("clear")
+                for row in self.height_list:
+                    print(row)          
 
-render = GameRenderer(20, 0)
-render.create2D_List()
-render.gameLoop()
+
+if __name__ == "__main__":
+    render = GameRenderer(15, 20)
+    render.create2D_List()
+    render.gameLoop()
